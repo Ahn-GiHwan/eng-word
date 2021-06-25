@@ -1,14 +1,19 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Nav from "../components/Nav";
-import { getInit } from "../redux/modules/mode";
+import { changeMode, getInit } from "../redux/modules/mode";
 
 export default function NavContainer() {
+  const mode = useSelector((state) => state.mode.mode);
   const dispatch = useDispatch();
 
-  useEffect(() => {
+  const init = useCallback(() => {
     dispatch(getInit());
   }, [dispatch]);
 
-  return <Nav />;
+  const onClick = useCallback(() => {
+    dispatch(changeMode());
+  }, [dispatch]);
+
+  return <Nav mode={mode} init={init} onClick={onClick} />;
 }

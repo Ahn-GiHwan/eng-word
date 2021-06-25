@@ -1,0 +1,61 @@
+// var
+
+$DBgColor: #111;
+$Dcolor: #eee;
+
+$LBgColor: #eee;
+$Lcolor: #111;
+
+// function
+
+@mixin dark {
+  background-color: $DBgColor;
+  color: $Dcolor;
+}
+
+@mixin light {
+  background-color: $LBgColor;
+  color: $Lcolor;
+}
+
+// common
+
+a:visited {
+  color: skyblue;
+}
+
+// mode(dark, light)
+.dark {
+  @include dark();
+  a {
+    @include dark();
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.3s;
+      color: $Dcolor;
+    }
+  }
+  li {
+    background-color: #353535;
+    color: $Dcolor;
+  }
+}
+
+.light {
+  @include light();
+  a {
+    @include light();
+  }
+  li {
+    background-color: white;
+    color: $Lcolor;
+  }
+}
+
+.modeIcon {
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.5);
+    transition: 0.5s;
+  }
+}

@@ -4,16 +4,24 @@ import { createActions, handleActions } from "redux-actions";
 
 const prefix = "eng-word/word";
 
-export const { getWordAll } = createActions("GET_WORD_ALL", { prefix });
+export const { getWordAll } = createActions(
+  {
+    GET_WORD_ALL: (datas) => ({ datas }),
+  },
+  { prefix }
+);
 
 const initalState = {
-  word: "",
+  words: [],
 };
 
 const word = handleActions(
   {
-    GET_WORD_ALL: (state, action) => {
-      return (state.word = "red");
+    GET_WORD_ALL: (state, { payload: { datas } }) => {
+      state.words.push({ ...datas });
+      return {
+        ...state,
+      };
     },
   },
   initalState,

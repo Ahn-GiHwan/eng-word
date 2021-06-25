@@ -2,10 +2,9 @@ import { createActions, handleActions } from "redux-actions";
 
 const prefix = "eng-word/mode";
 
-export const { getInit, changeDark, changeLight } = createActions(
+export const { getInit, changeMode } = createActions(
   "GET_INIT",
-  "CHANGE_DARK",
-  "CHANGE_LIGHT",
+  "CHANGE_MODE",
   { prefix }
 );
 
@@ -25,8 +24,22 @@ const mode = handleActions(
         mode,
       };
     },
-    CHANGE_DARK: (state, acion) => "dark",
-    CHANGE_LIGHT: (state, acion) => "light",
+    CHANGE_MODE: (state, acion) => {
+      const prevMode = state.mode;
+      if (prevMode === "light") {
+        localStorage.setItem("mode", "dark");
+        return {
+          ...state,
+          mode: "dark",
+        };
+      } else {
+        localStorage.setItem("mode", "light");
+        return {
+          ...state,
+          mode: "light",
+        };
+      }
+    },
   },
   initialState,
   { prefix }

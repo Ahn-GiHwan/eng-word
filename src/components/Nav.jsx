@@ -1,12 +1,26 @@
-export default function Nav() {
+import { useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
+import "../scss/style.scss";
+
+export default function Nav({ mode, init, onClick }) {
+  useEffect(() => {
+    init();
+  });
+
+  // const styles = {
+  //   transform: "scale(1.1)",
+  //   fontWeight: "900",
+  //   color: "white",
+  // };
+
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
+    <nav className={`navbar navbar-expand-lg ${mode} `}>
+      <div className="container-fluid">
+        <NavLink className="navbar-brand" to="/" exact>
           Navbar
-        </a>
+        </NavLink>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -14,36 +28,46 @@ export default function Nav() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
                 Home
-              </a>
+              </Link>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Features
-              </a>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/test">
+                Test
+              </NavLink>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/">
                 Pricing
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link disabled"
-                href="#"
-                tabindex="-1"
-                aria-disabled="true"
-              >
-                Disabled
-              </a>
+              </NavLink>
             </li>
           </ul>
+        </div>
+        <div className="form-check form-switch nav-link">
+          <input
+            className="form-check-input"
+            type="checkbox"
+            id="flexSwitchCheckDefault"
+            onChange={onClick}
+            checked={mode === "light" ? false : true}
+            style={{ display: "none" }}
+          />
+          <label
+            className="form-check-label modeIcon"
+            htmlFor="flexSwitchCheckDefault"
+          >
+            {mode === "light" ? (
+              <i className="bi bi-sun" style={{ color: "black" }}></i>
+            ) : (
+              <i className="bi bi-moon" style={{ color: "white" }}></i>
+            )}
+          </label>
         </div>
       </div>
     </nav>
